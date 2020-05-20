@@ -1,0 +1,18 @@
+stages:
+    - build
+
+before_script:
+    - ./build.ps1 --bootstrap
+  
+build:
+    tags: [windows]
+    stage: build
+    script:
+        - ./build.ps1
+    artifacts:
+      expire_in: 10 days
+      paths:
+          - Artifacts/
+          - Artifacts/TestResults/
+      reports:
+          junit: Artifacts/TestResults/*TestResults*.xml
